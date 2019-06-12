@@ -15,7 +15,7 @@ class Msecurity extends CI_MODEL {
 
     public function sanear($string){
 
-    	$string = strtoupper($string);
+    	//$string = strtoupper($string);
 
 	    if($string) {
 
@@ -61,7 +61,7 @@ class Msecurity extends CI_MODEL {
 			
 			
 
-			$array_string = explode(" ", $string);
+			$array_string = explode(" ", @$string);
 
 			$string = "";
 
@@ -186,7 +186,7 @@ class Msecurity extends CI_MODEL {
 	}
 
 	/**/
-
+/*
 	public function get_user_lan(){  
         $lan =substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2); 
     	return $lan;  
@@ -196,10 +196,37 @@ class Msecurity extends CI_MODEL {
 
   	public function url_and_lan(&$d){
 		$d['url'] = base_url().$this->lang->lang().'/';
-		$d['lan_pc'] = $this->get_user_lan();
+		//$d['lan_pc'] = $this->get_user_lan();
 		$d['lan_user'] = $this->lang->lang();
 	}
 
+	/**/
+	public function getUser($post){
+		
+		$pwmd5 = md5($post['inp_password']);
+		$useremail = $post['inp_email'];
+		$a = array('user_email'=>$useremail, 'user_password'=>$pwmd5, 'user_status'=>'1');
+		
+		$this->db->where($a);
+		
+		$query = $this->db->get('web_user');
+   	    $result = $query->result();
+		return @$result[0];
+	}
+
+
+	public function getUserDistribuidos($usuario,$contraseña){
+		
+		$pwmd5 = md5($contraseña);
+		$useremail = $usuario;
+		$a = array('user_email'=>$useremail, 'user_password'=>$pwmd5, 'user_status'=>'1');
+		
+		$this->db->where($a);
+		
+		$query = $this->db->get('web_user');
+   	    $result = $query->result();
+		return @$result[0];
+	}
 	/**/
 
 }

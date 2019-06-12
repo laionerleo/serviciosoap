@@ -11,43 +11,18 @@ $i                                        = '^(en|es|de|it|po)';
 $route[$l.'personas']                 		= 'Persona';
 
 $route['default_controller']               = 'Soapservicio';
-/*****dashboard ******/
-$route[$l.'dash_v2']                 		= 'Dashboard/dashv2';
-$route[$l.'dash_eco']                 		= 'Dashboard/ecommerce';
-$route[$l.'dash_analytics']                 		= 'Dashboard/analytics';
-$route[$l.'dash_team']                 		= 'Dashboard/team';
+/* rutas para ser una webservices*/
+$route[$l.'blog/backend/(:num)']                           = 'Blog/read_all_backend/$1/$2';
+$route[$l.'blog/backend/uno/(:num)']                           = 'Blog/read_all_backendsolo/$1/$2';
 
-
-
-/*****dashboard ******/
-
-/*****tables ******/
-$route[$l.'table_basic']                 		= 'Tables/basictables';
-$route[$l.'table_bootstrap']                 		= 'Tables/bootstraptables';
-$route[$l.'table_responsive']                 		= 'Tables/responsivetables';
-$route[$l.'table_jsgrid']                 		= 'Tables/jsgrid';
-$route[$l.'table_footable']                 		= 'Tables/footable';
-$route[$l.'table_datatables']                 		= 'Tables/datatables';
-$route[$l.'table_jqtabledit']                 		= 'Tables/jquerytabledit';
-$route[$l.'table_table-dragger']                 		= 'Tables/tabledragger';
-$route[$l.'table_editablestables']                 		= 'Tables/editablestables';
-$route[$l.'table_floatthead']                 		= 'Tables/floatthead';
-
-/*****tables ******/
-
-/*****forms ******/
-$route[$l.'form_advanced']                 		= 'Forms/advancedelements';
-$route[$l.'form_general']                 		= 'Forms/generalelements';
-$route[$l.'form_layouts']                 		= 'Forms/formlayout';
-$route[$l.'form_masks']                 		= 'Forms/formmask';
-$route[$l.'form_material']                 		= 'Forms/materialelements';
-$route[$l.'form_validation']                 		= 'Forms/formvalidation';
-$route[$l.'form_wizard']                 		= 'Forms/formwizard';
-$route[$l.'form_imagecropping']                 		= 'Forms/imagecropping';
-$route[$l.'form_fileuploads']                 		= 'Forms/fileuploads';
-$route[$l.'form_editor_summernote']                 		= 'Forms/editors_summernote';
-$route[$l.'form_editor_markdown']                 		= 'Forms/editors_markdown';
-$route[$l.'form_editor_aceeditor']                 		= 'Forms/editors_aceeditor';
+$route[$l.'about/backend/(:num)']                          = 'Restservicio/read_all_backend_about/$1/$2';
+$route[$l.'bussiness/backend/(:num)']                      = 'Restservicio/read_all_backend_bussines/$1/$2';
+$route[$l.'contact/backend/(:num)/(:any)/(:num)']                        = 'Restservicio/read_all_backend_contact/$1/$2/$3/$4';
+$route[$l.'gallery/backend/(:num)/(:any)/(:num)']                        = 'Restservicio/read_all_backend_gallery/$1/$2/$3/$4';
+$route[$l.'product/backend/(:num)']                        = 'Restservicio/read_all_backend_product/$1/$2';
+$route[$l.'services/backend/(:num)']                       = 'Restservicio/read_all_backend_services/$1/$2';
+$route[$l.'team/backend/(:num)']                           = 'Restservicio/read_all_backend_team/$1/$2';
+$route[$l.'servicedetalle/backend/(:num)']                        = 'Services_detalle/read_all_backend';
 
 
 /*****forms ******/

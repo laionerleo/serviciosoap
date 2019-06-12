@@ -49,8 +49,6 @@ class Soapservicio extends CI_Controller{
     function index()
     {
 
-        //dalskdjlaksjdlaksjdlaksjdlaksjdlkj
-
 		if($this->uri->segment(3) == "wsdl") {
 			$_SERVER['QUERY_STRING'] = "wsdl";
 		} else {
@@ -65,8 +63,9 @@ class Soapservicio extends CI_Controller{
 
     function addnumbers($a,$b)
     {
-        $c = $a + $b;
-        return $c;
+		$c = $a + $b;
+		echo $c;
+        return  $c;
     }
 
     function get_member() {
