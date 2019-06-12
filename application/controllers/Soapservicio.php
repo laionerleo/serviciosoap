@@ -49,6 +49,8 @@ class Soapservicio extends CI_Controller{
     function index()
     {
 
+        //dalskdjlaksjdlaksjdlaksjdlaksjdlkj
+
 		if($this->uri->segment(3) == "wsdl") {
 			$_SERVER['QUERY_STRING'] = "wsdl";
 		} else {
