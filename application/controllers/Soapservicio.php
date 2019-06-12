@@ -22,6 +22,7 @@ class Soapservicio extends CI_Controller{
 				"surname"=>array("name"=>"surname", "type"=>"xsd:string")
 				)
 		);
+		
 		$this->nusoap_server->register(
 			"getMember",
 			array(
