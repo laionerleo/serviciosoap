@@ -6,10 +6,17 @@ class Soapservicio extends CI_Controller{
 	public function __construct(){
         
         parent::__construct();
-        
+        $miURL = 'http://localhost/serviciosoap/es/';
         $this->load->library("Nusoap_library"); //cargando mi biblioteca
         $this->nusoap_server = new soap_server();
-		$this->nusoap_server->configureWSDL("cartWSDL", "urn:cartWSDL");
+		//$this->nusoap_server->configureWSDL("cartWSDL", "urn:cartWSDL");
+		$this->nusoap_server->configureWSDL('WSDLTST', $miURL);
+		$this->nusoap_server->wsdl->schemaTargetNamespace=$miURL;
+		
+		$this->nusoap_server->configureWSDL('AddService',$miURL );
+		$this->nusoap_server->wsdl->schemaTargetNamespace = $miURL.'wsdleo';
+		
+
 		$this->nusoap_server->wsdl->addComplexType(
 			"Member",
 			"complexType",
@@ -22,7 +29,6 @@ class Soapservicio extends CI_Controller{
 				"surname"=>array("name"=>"surname", "type"=>"xsd:string")
 				)
 		);
-		
 		$this->nusoap_server->register(
 			"getMember",
 			array(
@@ -50,14 +56,16 @@ class Soapservicio extends CI_Controller{
     function index()
     {
 
+		echo $this->uri->segment(3);
 		if($this->uri->segment(3) == "wsdl") {
 			$_SERVER['QUERY_STRING'] = "wsdl";
 		} else {
 			$_SERVER['QUERY_STRING'] = "";
+			
         }
         
 
-        $this->addnumbers(15,25);
+        //$this->addnumbers(15,25);
         $this->nusoap_server->service(file_get_contents("php://input"));
 
     }
@@ -66,6 +74,7 @@ class Soapservicio extends CI_Controller{
     {
 		$c = $a + $b;
 		echo $c;
+		echo "REQUEST:\n" .$this->nusoap_server->getLastRequest() . "\n"; 
         return  $c;
     }
 
