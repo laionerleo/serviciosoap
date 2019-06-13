@@ -18,8 +18,7 @@ class Muser extends CI_MODEL {
  	}
  	/**///read_one
  	public function read_one($id){
- 		$this->db->where('id',$id);
-        $this->db->where('pro_estado',"1");
+ 		$this->db->where('user_id',$id);
  		$query = $this->db->get('web_user');
  		$result = $query->result();
  		return $result;
