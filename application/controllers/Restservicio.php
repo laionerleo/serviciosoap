@@ -6,7 +6,7 @@ class Restservicio extends CI_Controller {
 	public function __construct(){
         
         parent::__construct();
- 
+ //no es asi ps zacary
         //cargamos la base de datos por defecto
         $this->load->database('default');
         
