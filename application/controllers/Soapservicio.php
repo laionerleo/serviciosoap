@@ -20,7 +20,7 @@ class Soapservicio extends CI_Controller{
     function index()
     {
 
-	if($this->doAuthenticate()){
+	//if($this->doAuthenticate()){
 		$this->servicessoap();
 		$this->ultimalinea();
 		if($this->uri->segment(3) == "wsdl") {
@@ -28,9 +28,9 @@ class Soapservicio extends CI_Controller{
 		} else {
 			$_SERVER['QUERY_STRING'] = "";
 		}
-	}else{
-		echo "no autorizado";
-	}
+	//}else{
+	//	echo "no autorizado";
+	//}
 		
 		
 	  
