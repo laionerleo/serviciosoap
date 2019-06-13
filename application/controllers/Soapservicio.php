@@ -80,23 +80,38 @@ class Soapservicio extends CI_Controller{
 
 		function obtenerUsuario($id) {
 			$CI =& get_instance();
+			if($CI->doAuthenticate()){
 			$d["usuario"] = $CI->Muser->read_one($id);
 			print_r($d["usuario"]);
 			echo "True";
+			}else{
+				echo "bloqueado";
+			}
 		
 		}
 	
 		function sumarDosNumeros($a,$b)
 		{
+			$CI =& get_instance();
+			if($CI->doAuthenticate()){
 			$c = $a + $b;
 			$c="La suma de ".$a." y ".$b." es = ".$c;		
 			
 			return  $c;
+			}else{
+				echo "bloqueado";
+			}
 		}
 		function saludar($nomb){
+			$CI =& get_instance();
+			if($CI->doAuthenticate()){
 			$saludo="Hola como estas ".$nomb;
 			return $saludo;
+			}else{
+				echo "bloqueado";
 			}
+		}
+
 	
 
 	
@@ -126,6 +141,7 @@ class Soapservicio extends CI_Controller{
 					   return  false;                   
 		
 				   }
+				   return false;
 				   
 				}
 		
