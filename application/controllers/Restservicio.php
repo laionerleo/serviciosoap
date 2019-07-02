@@ -10,7 +10,7 @@ class Restservicio extends CI_Controller {
         header('Content-Type: application/json');
 		
         parent::__construct();
- //no es asi ps zacary
+ 			//no es asi ps zacary
         //cargamos la base de datos por defecto
         $this->load->database('default');
         
@@ -44,13 +44,12 @@ class Restservicio extends CI_Controller {
 
 			if(@$usuario->user_email){
 				$tokenData['uniqueId'] =$usuario->user_id ;
-				$tokenData['role'] = 'alamgir';
+				$tokenData['role'] = $usuario->user_type;
 				$tokenData['timeStamp'] = Date('Y-m-d h:i:s');
 				$tokenData['timeleo'] = $time;
 				$tokenData['user'] =$usuario->user_email ;
 				$tokenData['password'] =$usuario->user_password ;
-				$tokenData['iat'] = $time;
-				$tokenData['exp'] = $time--;
+				
         
 				
 				$jwtToken = $this->objOfJwt->GenerateToken($tokenData);
@@ -87,13 +86,22 @@ class Restservicio extends CI_Controller {
     }
 
 	public function read_all_backend_blog($lan,$id){
+
+		try
+        {
+			echo print_r($received_Token);
+            $jwtData = $this->objOfJwt->DecodeToken($received_Token['Token']);
+			
+			
+			
+        }
+        catch (Exception $e)
+            {
+            http_response_code('401');
+            echo json_encode(array( "status" => false, "message" => $e->getMessage()));exit;
+        }
 	
-		$d = array();
-		$this->Msecurity->url_and_lan($d);
-		$d["allblog"] = $this->Mblog->read_all_backend($id);
-		$oneblog = json_encode($d["allblog"]);
-		print_r($oneblog);
-	
+		
 		
 	}
 	
@@ -101,11 +109,24 @@ class Restservicio extends CI_Controller {
 	/**/
 	public function read_all_backendsolo($lan,$id){
 	
-		$d = array();
-		$this->Msecurity->url_and_lan($d);
-		$d["oneblog"] = $this->Mblog->read_one($id);
-		$oneblog = json_encode($d["oneblog"]);
-		print_r($oneblog);
+	
+		$received_Token = $this->input->request_headers('Authorization');
+        try
+        {
+			echo print_r($received_Token);
+            $jwtData = $this->objOfJwt->DecodeToken($received_Token['Token']);
+			$d = array();
+			$this->Msecurity->url_and_lan($d);
+			$d["oneblog"] = $this->Mblog->read_one($id);
+			$oneblog = json_encode($d["oneblog"]);
+			print_r($oneblog);
+			
+        }
+        catch (Exception $e)
+            {
+            http_response_code('401');
+            echo json_encode(array( "status" => false, "message" => $e->getMessage()));exit;
+        }
 	
 		
 	}
