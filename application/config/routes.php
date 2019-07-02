@@ -11,6 +11,13 @@ $i                                        = '^(en|es|de|it|po)';
 $route[$l.'personas']                 		= 'Persona';
 
 $route['default_controller']               = 'Soapservicio';
+$route[$l.'loginusuario']                     = 'Restservicio/loginuser';
+$route[$l.'verificando']                     = 'Restservicio/verificando';
+
+
+
+
+
 /* rutas para ser una webservices*/
 $route[$l.'blog/backend/(:num)']                           = 'Blog/read_all_backend/$1/$2';
 $route[$l.'blog/backend/uno/(:num)']                           = 'Blog/read_all_backendsolo/$1/$2';

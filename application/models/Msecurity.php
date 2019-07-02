@@ -216,9 +216,11 @@ class Msecurity extends CI_MODEL {
 
 
 	public function getUserDistribuidos($usuario,$contraseña){
+
 		
 		$pwmd5 = md5($contraseña);
 		$useremail = $usuario;
+		
 		$a = array('user_email'=>$useremail, 'user_password'=>$pwmd5, 'user_status'=>'1');
 		
 		$this->db->where($a);

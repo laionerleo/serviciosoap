@@ -76,6 +76,16 @@ class Muser extends CI_MODEL {
     
     }
     /**/
+
+    public function edit_token($dato){
+    
+        $datos = array('user_token' =>$dato['token']);
+        $this->db->where('user_id',$dato['userid']);
+        $this->db->update("web_user",$datos);
+        return $dato['iduser'];
+
+        }
+    
  	
 
 }

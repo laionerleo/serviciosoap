@@ -1,10 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require APPPATH . '/libraries/CreatorJwt.php';
 
 class Restservicio extends CI_Controller {
 
 	public function __construct(){
-        
+		// codigo de la libreria
+		$this->objOfJwt = new CreatorJwt();
+        header('Content-Type: application/json');
+		
         parent::__construct();
  //no es asi ps zacary
         //cargamos la base de datos por defecto
@@ -21,10 +25,66 @@ class Restservicio extends CI_Controller {
 
         //cargamos los modelos
 		$this->load->model(array('Msecurity','Mabout','Mblog','Muser','Mbusiness','Mcontact','Mgallery','Mproduct','Mservices','Mteam'));
+		date_default_timezone_set('America/La_Paz');
 	
 
     }
 
+	public function loginuser(){
+		
+		if(isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) )
+		{
+			$contra= $_SERVER['PHP_AUTH_PW'];   
+			$usuario=$_SERVER['PHP_AUTH_USER'];			
+			$usuario = $this->Msecurity->getUserDistribuidos($usuario,$contra);
+			$datos = array();
+			
+			
+			$time = time();
+
+			if(@$usuario->user_email){
+				$tokenData['uniqueId'] =$usuario->user_id ;
+				$tokenData['role'] = 'alamgir';
+				$tokenData['timeStamp'] = Date('Y-m-d h:i:s');
+				$tokenData['timeleo'] = $time;
+				$tokenData['user'] =$usuario->user_email ;
+				$tokenData['password'] =$usuario->user_password ;
+				$tokenData['iat'] = $time;
+				$tokenData['exp'] = $time--;
+        
+				
+				$jwtToken = $this->objOfJwt->GenerateToken($tokenData);
+				$datos['userid']=$usuario->user_id;
+				$datos['token']=$jwtToken;
+				$this->Muser->edit_token($datos);	
+
+				echo json_encode(array('Token nuevo'=>$jwtToken));
+		
+			}
+			else{
+					echo "  no existe el usuario ";
+			}
+		}
+
+	}
+
+
+	public function verificando()
+    {
+    $received_Token = $this->input->request_headers('Authorization');
+        try
+        {
+			echo print_r($received_Token);
+            $jwtData = $this->objOfJwt->DecodeToken($received_Token['Token']);
+			echo json_encode($jwtData);
+			
+        }
+        catch (Exception $e)
+            {
+            http_response_code('401');
+            echo json_encode(array( "status" => false, "message" => $e->getMessage()));exit;
+        }
+    }
 
 	public function read_all_backend_blog($lan,$id){
 	
