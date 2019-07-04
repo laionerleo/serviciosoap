@@ -189,14 +189,30 @@ class Restservicio extends CI_Controller {
         
 		
 	}
-	public function read_all_backend_product($lan,$id){
+	public function cargararchivo(){
 	
+		
 		$d = array();
 		$this->Msecurity->url_and_lan($d);
-		$d["allproduct"] = $this->Mproduct->read_all_backend($id);
-		$oneproduct = json_encode($d["allproduct"]);
-		print_r($oneproduct);
-	
+		$mi_archivo = 'mi_archivo';
+        $config['upload_path'] = 'archivos/';
+        $config['file_name'] = "nombre_archivo";
+        $config['allowed_types'] = "*";
+        $config['max_size'] = "50000";
+        $config['max_width'] = "2000";
+        $config['max_height'] = "2000";
+
+		$this->load->library('upload', $config);
+		
+        if (!$this->upload->do_upload($mi_archivo)) {
+			//*** ocurrio un error
+			
+            $data['uploadError'] = $this->upload->display_errors();
+            print_r($this->upload->display_errors());
+            return;
+		}
+         print_r($this->upload->data());
+		
 		
 	}
 	public function read_all_backend_services($lan,$id){
