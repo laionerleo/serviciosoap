@@ -13,6 +13,8 @@ $route[$l.'personas']                 		= 'Persona';
 $route['default_controller']               = 'Soapservicio';
 $route[$l.'loginusuario']                     = 'Restservicio/loginuser';
 $route[$l.'verificando']                     = 'Restservicio/verificando';
+$route[$l.'cargararchivo']                     = 'Restservicio/cargararchivo';
+
 
 
 
